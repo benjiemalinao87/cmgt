@@ -1,0 +1,36 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/security 
+        http://www.springframework.org/schema/security/spring-security.xsd">
+    
+    <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+    
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/resources/**" access="permitAll" />
+        <intercept-url pattern="/account/login/**" access="isAnonymous()" />
+        <intercept-url pattern="/account/register/**" access="isAnonymous()" />
+        <intercept-url pattern="/account/confirm/**" access="isAnonymous()" />
+        <intercept-url pattern="/account/resend/**" access="isAnonymous()" />
+        <intercept-url pattern="/account/sent/**" access="isAnonymous()" />
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+        <form-login 
+            login-page="/account/login"
+            login-processing-url="/login"
+            username-parameter="email"
+            password-parameter="password"
+            default-target-url="/home" 
+            always-use-default-target="true" 
+            authentication-failure-url="/account/login?error=true" 
+        />
+        <logout logout-url="/logout" logout-success-url="/account/login" />  
+        <access-denied-handler error-page="/account/accessDenied" />
+        <csrf/>
+    </http>
+    
+    <authentication-manager>
+        <authentication-provider ref="customAuthenticationProvider" />
+    </authentication-manager>
+</beans:beans>

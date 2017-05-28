@@ -4,7 +4,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <p class="text-center">
-                            Credentials Management Copyright &copy; 2017 TheBhadzTech
+                            Credentials Management Copyright &copy; 2017 TheBhadzTec- updated using CICD
                         </p>
                     </div>
                 </div>
